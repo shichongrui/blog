@@ -20,9 +20,6 @@
             </header>
             <div class="content">
                 <p style="text-transform: uppercase;">{{ site.description }}</p>
-                <ul class="actions">
-                    <li><a href="#one" class="button next scrolly">Get Started</a></li>
-                </ul>
             </div>
         </div>
     </section>
@@ -34,17 +31,19 @@
         {% include tiles.html %}
 
         <!-- Two -->
+        {% if site.project_title %}
         <section id="two">
             <div class="inner">
                 <header class="major">
-                    <h2>Massa libero</h2>
+                    <h2>Current Project - {{ site.project_title }}</h2>
                 </header>
-                <p>{{ content }}</p>
+                <p>{{ site.project_description }}</p>
                 <ul class="actions">
-                    <li><a href="landing.html" class="button next">Get Started</a></li>
+                    <li><a href="landing.html" class="button next">See what I've done</a></li>
                 </ul>
             </div>
         </section>
+        {% endif %}
 
     </div>
 

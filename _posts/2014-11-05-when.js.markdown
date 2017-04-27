@@ -1,0 +1,189 @@
+---
+layout: post
+title: when.js
+description: Ensure async script dependencies are available before use
+image: assets/images/when.jpg
+---
+
+I've been thinking about javascript library (I'm going to use library in place of library/framework so that I don't have to write it a bunch) dependencies in the browser lately and the async attribute on script tags. Script tags are render blocking so if you required a library for your web app, all you needed to do was ensure that the library include was before your script include that uses the library.
+
+{% highlight html %}
+<script src="jquery.min.js"></script>
+<script src="script-using-jquery.min.js"></script>
+{% endhighlight %}        
+
+With the `async`, attribute I have been wondering  about how you ensure that the library is loaded before your script finishes downloading and runs.
+
+{% highlight html %}
+<script async src="jquery.min.js"></script>
+<script async src="script-using-jquery.min.js"></script><!-- what if this loads before jquery does? -->
+{% endhighlight %}
+
+The solution that I thought of at first was, *I guess you just don't use async on libraries.* I wasn't a huge fan of that solution though and after some more pondering and tinkering I have found a different solution.
+
+####when.js####
+when.js is a utility (It's a single function) that enables you to execute a piece of code when a variable becomes available on the window object.  So in the case of jQuery.  I could write `script-using-jquery.js` using when.js and it would look like this:
+
+{% highlight javascript %}
+when("$", function() {
+  $(".class").html("when.js rocks!");
+  //do a bunch of jquery stuff
+});
+{% endhighlight %}
+
+when.js will register your given function to call when ever the `$` variable becomes available on the window object.  The awesome thing is that I can register any number of functions all waiting for the same object to become available.
+
+{% highlight javascript %}
+when("$", function() {
+  //jquery stuff
+});
+when("$", function() {
+  //more jquery stuff
+});
+{% endhighlight %}
+    
+when.js will run all of the registered functions when the provided variable becomes available.
+
+If the variable is already available on the window object your function will just get run immediately.
+
+####How does it work####
+The code to make it work is only 34 lines including comments. (211 bytes minified and gzipped).
+
+{% highlight javascript %}
+var when = (function () {
+  var callbacks = [],
+  whenObjects = [];
+
+  return function (object, callback) {
+    //if the variable already exists then we should just run the function
+    if (window[object] !== undefined) {
+      callback();
+    } else {
+      callbacks[object] = callbacks[object] || [];
+      callbacks[object].push(callback);
+
+      if (!window.hasOwnProperty(object)) {
+        //put a getter and setter on the window object
+        Object.defineProperty(window, object, {
+          get: function () {
+            return whenObjects[object];
+          },
+          set: function (variable) {
+            whenObjects[object] = variable;
+            //call all functions 
+            var numCallbacks = callbacks[object].length;
+            for (var i = 0; i < numCallbacks; i++) {
+              callbacks[object][i].call(this);
+            }
+            //after all of the callbacks have been run it will remove all of the callbacks so that
+            //we can free up some memory
+            callbacks[object] = null;
+          }
+        });
+      }
+    }
+  }
+})();
+{% endhighlight %}
+                  
+I will run through the major parts to explain how it works.
+
+{% highlight javascript %}
+var callbacks = [],
+    whenObjects = [];
+{% endhighlight %}
+        
+Everything is wrapped in a self executing function in order to provide closure scope to the when function.  This is needed so that between calls to `when`, it can maintain a list of callbacks and objects that have been attached to the window object.
+
+{% highlight javascript %}
+if (window[object] !== undefined) {
+{% endhighlight %}
+      
+Here we need to check to see if the value is undefined.  We can't use `hasOwnProperty` because if `when` has been called for the same object more than once, the object will already be a property because of the getter and setter, but it may not have a value yet.
+
+{% highlight javascript %}
+callbacks[object] = callbacks[object] || [];
+callbacks[object].push(callback);
+{% endhighlight %}
+    
+`callbacks[object]` may not have been defined yet, so if it is we just want to reuse it, but if not, we need to make it an array and push the callback on there.
+
+{% highlight javascript %}
+if (!window.hasOwnProperty(object)) {
+{% endhighlight %}
+      
+Now here it is important for us to see if the getters and setters have been created already for the object.  We don't want to try to create them more than once.
+
+{% highlight javascript %}
+//put a getter and setter on the window object
+Object.defineProperty(window, object, {
+  get: function () {
+    return whenObjects[object];
+  },
+  set: function (variable) {
+    whenObjects[object] = variable;
+    //call all functions 
+    var numCallbacks = callbacks[object].length;
+    for (var i = 0; i < numCallbacks; i++) {
+      callbacks[object][i].call(this);
+    }
+    //after all of the callbacks have been run it will remove all of the callbacks so that
+    //we can free up some memory
+    callbacks[object] = null;
+  }
+});
+{% endhighlight %}
+    
+So here is where the magic happens.  We will define a property on the window object with the key of the name of the object.  Then we will define a getter and setter.
+
+Lets start with the setter.
+
+{% highlight javascript %}
+set: function (variable) {
+  whenObjects[object] = variable;
+  //call all functions 
+  var numCallbacks = callbacks[object].length;
+  for (var i = 0; i < numCallbacks; i++) {
+    callbacks[object][i].call(this);
+  }
+  //after all of the callbacks have been run it will remove all of the callbacks so that
+  //we can free up some memory
+  callbacks[object] = null;
+}
+{% endhighlight %}
+    
+The first thing we do is set the given variable in our `whenObjects` array.  After it is set, we will call all of the callbacks that have been registered up to this point.  Then after they have all been called we will set all of the callbacks to null.  This way we can conserve some memory as well as prevent the callbacks from being executed again if the given variable is set to a different value.
+
+If you aren't familiar with how setters work, this `set` function will get called when someone does this: `window.varName = "Anything"`;
+
+Now the getter:
+
+{% highlight javascript %}
+get: function () {
+  return whenObjects[object];
+},
+{% endhighlight %}
+    
+The getter is pretty simple.  It just returns the value for the object that was set in the setter.
+
+If you aren't familiar with how getters work this function would be called whenever the value of the variable is asked for. `var variable = window.varName;`
+
+All of the code can be found on github at https://github.com/shichongrui/when.js
+
+In the future I hope to implement when.js with promises so that you could call `when` like so:
+
+{% highlight javascript %}
+when("$").then(function() {
+  //code that will run after promise is resolved
+});
+{% endhighlight %}
+    
+Or if you required multiple variables to be present:
+
+{% highlight javascript %}
+var promises = [when("$"), when("angular")];
+Promise.all(promises, function() {
+  //code that will run after jquery and angular are present
+});
+{% endhighlight %}
+				

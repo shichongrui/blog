@@ -1,0 +1,108 @@
+---
+layout: post
+title: Memoize
+description: How memoizing works and an explanation of a javascript implementation
+image: assets/images/memoize.jpg
+---
+
+Being a dad there isn't much to make me prouder than to see my daughter trying to type on my computer so that she can be just like her daddy.  So I decided to let her co-author this post with me (even though she can't even speak).
+
+This last week was the career fair at BYU-Idaho where many companies, mostly from the surrounding area and Utah, came to recruit the best we have to offer. I interviewed with two companies where I was given several coding exercises and I wanted to write about one of them.
+
+One of these exercises introduced a new idea that I had never heard of before, Memoize.  The idea of memoize is given an expensive, pure function (one that given the same input parameters will always return the same result), cache the results of the first call to the function. That way all subsequent calls to the function return the cached result instead of running the expensive operation over again.
+
+#### In Real Life
+For those less technically inclined I will try to explain the logic and flow of memoize without technical jargin.
+
+A very real life example of the concept of memoize is in the learning of mathematics.  When learning simple multiplication you may be introduced to a multiplication problem such as 2x3 you may not know the answer immediately.  You must solve the problem and arrive at a result.  After a few times of doing this problem though you might be able to just look at 2x3 and say, "Hey I've already done this problem before and I know that the answer is 6."
+
+In real life though this starts to fall apart when the problems get more and more complex.  We don't necessarily have this problem when it comes to a programming application.
+
+#### Code
+
+Simple applications of memoize can be done in many different languages.  You could memoize your own functions by just adding a dictionary/hash/associative array (however your language of choice refers to them) that holds the results of the functions operation.  Then when the function is run it would check to see if it has already been run with the given parameters and return the cached value if so.
+
+The particular problem I was given in my interview needed a little more thinking, but ultimately has a fairly simple solution.  The instructions were to write a memoize function, that takes a function as it's only parameter, and then returns a function that calls the original function but memoizes the results. So here is my implementation in javascript and then I will explain it.
+
+{% highlight javascript %}
+function memoize(original) {
+  var cache = [];
+  return function() {
+    var key = Array.prototype.join.call(arguments),
+    value;
+        
+    if (cache.hasOwnProperty(key)) {
+      value = cache[key];
+    } else {
+      value = original.apply(undefined, arguments);
+      cache[key] = value;
+    }
+        
+    return value;
+  }
+}
+{% endhighlight %}
+       
+The first thing the function must do is create an associative array to hold the results of calls to the given function.
+
+{% highlight javascript %}
+var cache = [];
+{% endhighlight %}
+
+Then comes the interesting parts.  Next we return a function, where the first thing we do is generate a key to be used to uniquely identify calls to the given function.  We are using the arguments array because we never know how many parameters any given function will have.
+
+{% highlight javascript %}
+var key = Array.prototype.join.call(arguments)
+{% endhighlight %}
+
+We are required to use Array.prototype.join because for some reason the arguments array does not have all of the methods that normal arrays do in javascript.  But this call will generate a key in the format of `p1,p2,p3,etc...`
+
+Next we will check to see if the function has been called before by checking if the key exists in the cache already
+
+{% highlight javascript %}
+if (cache.hasOwnProperty(key)) {
+{% endhighlight %}
+
+If this call returns true we will set the return value to the value in the cache.
+
+{% highlight javascript %}
+value = cache[key];
+{% endhighlight %}
+
+If it returns false, meaning the function has never been called with the given parameters before, we must call the original function with the given parameters.
+
+{% highlight javascript %}
+value = original.apply(undefined, arguments);
+{% endhighlight %}
+
+The apply function allows us to call a function, providing a variable to use as the *this* keyword inside the function, as well as provide an array of variables to use as the parameters to the function. [MDN apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+
+We then store the result of this call in the cache.
+
+{% highlight javascript %}
+cache[key] = value;
+{% endhighlight %}
+
+Then last but not least we return the result.
+
+{% highlight javascript %}
+return value;
+{% endhighlight %}     
+
+So as an application of this function we could write:
+
+{% highlight javascript %}
+Math.abs = memoize(Math.abs);
+{% endhighlight %}
+
+Doing so leaves Math.abs to function the same way that it did before, but allows it's results to be cached.  Pretty handy huh?
+
+{% highlight javascript %}
+Math.abs(-3) //returns 3 through Math.abs
+Math.abs(-3) //returns 3 through cache
+{% endhighlight %}
+
+One thing that I failed to mention, this solution wouldn't work at all if it weren't for closures.  The whole reason we can do what we are doing here is because of the closure scope created when we returned the anonymous function.  This allows us to use `original` as well as `cache` in the returned function and are remembered between calls to the returned function.  For more on closures, check this out: [MDN Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures)
+
+I am currently working on a memoize solution in swift similar to this one but have yet to get it to compile. I will write a post when I get it figured out though.
+				
