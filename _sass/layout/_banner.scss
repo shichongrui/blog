@@ -6,6 +6,12 @@
 
 /* Banner */
 
+  .project {
+    #banner {
+      background-image: none;
+    }
+  }
+
 	#banner {
 		@include vendor('align-items', 'center');
 		@include vendor('background-image', 'url("/assets/images/banner.jpg")');
@@ -24,11 +30,11 @@
 		position: relative;
 		top: -3.25em;
 
-		&:after {
+    &:after {
 			@include vendor('transition', 'opacity #{_duration(banner)} ease');
 			@include vendor('transition-delay', '0.75s');
 			@include vendor('pointer-events', 'none');
-			background-color: _palette(bg);
+			background-color: #242943;
 			content: '';
 			display: block;
 			height: 100%;
@@ -86,7 +92,7 @@
 				}
 
 				p {
-					font-size: 0.7em;
+					font-size: 0.9em;
 					font-weight: _font(weight-bold);
 					letter-spacing: _font(letter-spacing-alt);
 					text-transform: uppercase;

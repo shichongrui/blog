@@ -2,7 +2,6 @@
 title: Matthew Sessions
 subtitle: All things I work on
 email: shichongrui@gmail.com
-description: I have so many interests and am constantly finding new things to explore. Check out all the stuff I do.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://matthewsessions.com" # the base hostname & protocol for your site
 author: Matthew Sessions
@@ -24,8 +23,7 @@ slack_url:
 twitter_url: https://twitter.com/shichongrui
 
 # Current Project
-project_title:
-project_description:
+current_project: site-overhaul
 
 # Build settings
 markdown: kramdown

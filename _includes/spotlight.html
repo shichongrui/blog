@@ -1,0 +1,16 @@
+<section>
+  <a href="{{ page.url }}" class="image">
+    <img src="{{ page.image }}" alt="" data-position="center center" />
+  </a>
+  <div class="content">
+    <div class="inner">
+      <header class="major">
+        <h3>{{ page.title }}</h3>
+      </header>
+      <p>{{ page.content | markdownify }}</p>
+      <ul class="actions">
+        <li><a href="{{ page.url }}" class="button">Check it out</a></li>
+      </ul>
+    </div>
+  </div>
+</section>

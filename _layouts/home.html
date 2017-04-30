@@ -4,11 +4,11 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="en">
 
 {% include head.html %}
 
-<body>
+<body class="home">
 
     {% include header.html %}
 
@@ -19,7 +19,7 @@
                 <h1>{{ page.landing-title }}</h1>
             </header>
             <div class="content">
-                <p style="text-transform: uppercase;">{{ site.description }}</p>
+                <p style="text-transform: uppercase;">{{ page.description }}</p>
             </div>
         </div>
     </section>
@@ -28,21 +28,19 @@
     <div id="main">
 
         <!-- One -->
+        {% assign tiles = site.posts | slice:0, site.tiles-count %}
         {% include tiles.html %}
 
         <!-- Two -->
-        {% if site.project_title %}
-        <section id="two">
-            <div class="inner">
-                <header class="major">
-                    <h2>Current Project - {{ site.project_title }}</h2>
-                </header>
-                <p>{{ site.project_description }}</p>
-                <ul class="actions">
-                    <li><a href="landing.html" class="button next">See what I've done</a></li>
-                </ul>
-            </div>
-        </section>
+        {% if site.current_project %}
+          {% for page in site.pages %}
+            {% if page.project == site.current_project %}
+              <section class="spotlights">
+                <h4 class="title">Current Project</h4>
+                {% include spotlight.html %}
+              </section>
+            {% endif %}
+          {% endfor %}
         {% endif %}
 
     </div>

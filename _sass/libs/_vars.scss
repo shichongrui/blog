@@ -45,3 +45,5 @@
 		accent5:			#8ea9e8,
 		accent6:			#87c5a4
 	);
+
+  $colors: map-get($palette, accent1), map-get($palette, accent2), map-get($palette, accent3), map-get($palette, accent4), map-get($palette, accent5), map-get($palette, accent6);
