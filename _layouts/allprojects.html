@@ -27,8 +27,7 @@
 
     <!-- Two -->
     <section class="spotlights">
-      {% assign pages = site.pages %}
-      {% for page in pages %}
+      {% for page in site.pages %}
         {% if page.project %}
           {% include spotlight.html %}
         {% endif %}

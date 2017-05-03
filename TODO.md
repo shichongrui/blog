@@ -3,4 +3,5 @@
  - opengraph tags
  - link prefetching
  - commenting
+ - seo
  
