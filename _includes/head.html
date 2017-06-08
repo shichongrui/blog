@@ -10,9 +10,9 @@
   <meta property="og:type" content="blog" />
   <meta property="og:title" content="{{ page.title }}" />
   <meta property="og:description" content="{{ page.description }}" />
-  <meta property="og:url" content="http://a8fa8ec5.ngrok.io{{ page.url }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   
   {% if page.image %}
-    <meta property="og:image" content="http://a8fa8ec5.ngrok.io{{ page.image }}" />
+    <meta property="og:image" content="{{ site.url }}{{ page.image }}" />
   {% endif %}
 </head>

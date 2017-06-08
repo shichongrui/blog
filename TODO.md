@@ -1,3 +1,4 @@
+ - Don't make colors totally transparent on home page
  - possibly cloudflare for ssl
  - tags
  - opengraph tags
