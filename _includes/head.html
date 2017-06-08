@@ -7,4 +7,12 @@
 	<!--[if lte IE 9]><link rel="stylesheet" href="{{ "assets/css/ie9.css" | relative_url }}" /><![endif]-->
 	<!--[if lte IE 8]><link rel="stylesheet" href="{{ "assets/css/ie8.css" | relative_url }}" /><![endif]-->
   <link rel="stylesheet" href="{{ "assets/css/syntax.css" | relative_url }}" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.description }}" />
+  <meta property="og:url" content="http://a8fa8ec5.ngrok.io{{ page.url }}" />
+  
+  {% if page.image %}
+    <meta property="og:image" content="http://a8fa8ec5.ngrok.io{{ page.image }}" />
+  {% endif %}
 </head>
