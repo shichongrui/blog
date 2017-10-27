@@ -15,7 +15,7 @@ There are two ways to get the size of a rendered component in React Native. One 
 class Avatar extends Component {
   render (
     <View>
-      <Image source={{ uri: http://fillmurray.com/200/200 }} width={200} height={200} />
+      <Image source={% raw %}{{ uri: 'http://fillmurray.com/200/200' }}{% endraw %} width={200} height={200} />
       <Text>My Picture</Text>
     </View>
   )
@@ -37,7 +37,7 @@ class Avatar extends Component {
 
   render (
     <View onLayout={this.onLayout}>
-      <Image source={{ uri: http://fillmurray.com/200/200 }} width={200} height={200} />
+      <Image source={% raw %}{{ uri: 'http://fillmurray.com/200/200' }}{% endraw %} width={200} height={200} />
       <Text>My Picture</Text>
     </View>
   )
@@ -55,7 +55,7 @@ import onLayout from 'react-native-on-layout'
 
 const Avatar = () => (
   <View>
-    <Image source={{ uri: http://fillmurray.com/200/200 }} width={200} height={200} />
+    <Image source={% raw %}{{ uri: 'http://fillmurray.com/200/200' }}{% endraw %} width={200} height={200} />
     <Text>
       My Picture 
       {this.props.width} 

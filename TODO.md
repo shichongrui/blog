@@ -1,4 +1,4 @@
- - Don't make colors totally transparent on home page
+ - Add TooeleFun as current project
  - possibly cloudflare for ssl
  - tags
  - opengraph tags
