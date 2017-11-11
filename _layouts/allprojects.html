@@ -27,7 +27,7 @@
 
     <!-- Two -->
     <section class="spotlights">
-      {% for page in site.pages %}
+      {% for page in site.pages reversed %}
         {% if page.project %}
           {% include spotlight.html %}
         {% endif %}

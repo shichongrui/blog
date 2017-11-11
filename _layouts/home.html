@@ -30,18 +30,23 @@
         <!-- One -->
         {% assign tiles = site.posts | slice:0, site.tiles-count %}
         {% include tiles.html %}
+        <div class="see-more">
+          <a href="/all-posts.html" class="button">See more posts</a>
+        </div>
 
         <!-- Two -->
-        {% if site.current_project %}
-          {% for page in site.pages %}
-            {% if page.project == site.current_project %}
-              <section class="spotlights">
-                <h4 class="title">Current Project</h4>
-                {% include spotlight.html %}
-              </section>
+        <section class="spotlights">
+          <h4 class="title">My Projects</h4>
+          {% assign project_pages = site.pages | where:"layout", "project" | reverse | slice:0, 2 %}
+          {% for page in project_pages %}
+            {% if page.project %}
+              {% include spotlight.html %}
             {% endif %}
           {% endfor %}
-        {% endif %}
+          <div class='see-more'>
+            <a href="/projects.html" class="button">See more projects</a>
+          </div>
+        </section>
 
     </div>
 

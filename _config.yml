@@ -22,9 +22,6 @@ pinterest_url:
 slack_url:
 twitter_url: https://twitter.com/shichongrui
 
-# Current Project
-current_project: site-overhaul
-
 # Build settings
 markdown: kramdown
 
