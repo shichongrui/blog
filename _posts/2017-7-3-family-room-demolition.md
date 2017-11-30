@@ -8,7 +8,7 @@ layout: post
 
 The next room we wanted to tackle was the family room. Along with the usual poor texture, there was also a closet that was built very poorly, with 2x4s exposed on the outside of the drywall, as well as several areas where the ceiling was dropped to accommodate ductwork, lights, and pipes.  We wanted to try and get rid of these weird dropped ceiling areas and find a way to cover whatever was dropping below the ceiling with some other feature that didn't look weird.
 
-First thing to go was the weird closet.
+So with the help of my dad the first thing to go was the weird closet.
 
 ![The demolished closet](/assets/images/basement-renovation/closet-gone.JPG)
 
