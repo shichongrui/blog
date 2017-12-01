@@ -1,5 +1,5 @@
 ---
-title: Sorting multidimensional arrays in Ruby
+title: Sorting an array that is multi-dimensional in Ruby
 description: Sorting multidimensional works with a few caveats
 image: /assets/images/ruby.jpg
 layout: post
