@@ -6,7 +6,7 @@ project: basement-renovation
 layout: post
 ---
 
-We started this project in June with demolition work on the room. And over 6 months later, it is finally done. There were many long nights and a lot of frustration. But we are very happy with how it turned out. A big thanks goes out to my dad for helping me with the wainscoting and demolition as well as my [brother in law](https://www.facebook.com/jrconstructionwy) (<- check out his work it's awesome) for helping me figure out how to use the paint sprayer.
+We started this project in June with demolition work on the room. And over 6 months later, it is finally done. There were many long nights and a lot of frustration. But we are very happy with how it turned out. A big thanks goes out to my dad for helping me with the wainscoting and demolition as well as my [brother in law](https://www.facebook.com/jrconstructionwy) (<- check out his work it's awesome) for helping me figure out how to use the paint sprayer. I couldn't have done it without the help of my amazing wife. She helped with so much, ripping boards, installing them, caulking, mudding, painting, and anything else I needed help with. I couldn't have done it without her.
 
 So after putting 1/4" drywall on the walls for the wainscoting as well as the ceiling, it was time to start putting on some wood.
 
