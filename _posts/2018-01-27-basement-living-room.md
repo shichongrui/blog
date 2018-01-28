@@ -20,7 +20,9 @@ We also put some wood around the air duct and structural beam in the basement.
 
 ![Working on the beams](/assets/images/basement-renovation/IMG-1162-min.JPG)
 
-![Working on the post](/assets/images/basement-renovation/IMG-1164.JPG)
+![Working on the post](/assets/images/basement-renovation/IMG-1164-min.JPG)
+
+Then came the paint. After some frustration and an attempt at rolling and cutting in the wainscoting, we finally got the sprayer working.
 
 ![First coat of paint](/assets/images/basement-renovation/IMG-1209-min.JPG)
 
@@ -28,7 +30,7 @@ We also put some wood around the air duct and structural beam in the basement.
 
 ![Wall paint is up](/assets/images/basement-renovation/IMG-1212-min.JPG)
 
-And the finished product
+And the finished product with new lights.
 
 ![Living room is done](/assets/images/basement-renovation/IMG-1217-min.JPG)
 
